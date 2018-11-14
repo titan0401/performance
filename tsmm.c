@@ -9,7 +9,7 @@ int main()
 {
 	#pragma omp parallel
 	{
-		// printf("Hello OpenMP from thread %d / %d on core %d\n", omp_get_thread_num(), omp_get_num_threads(), sched_getcpu());
+		printf("Hello OpenMP from thread %d / %d on core %d\n", omp_get_thread_num(), omp_get_num_threads(), sched_getcpu());
 	}
 	
 	int nb=2;
@@ -19,10 +19,10 @@ int main()
 	scanf("%d", &n);
 	
 	double **V = (double **)malloc(n * sizeof(double*));
-	for(int i = 0; i < nb; i++) V[i] = (double *)malloc(nb * sizeof(double));
+	for(int i = 0; i < n; i++) V[i] = (double *)malloc(nb * sizeof(double));
 	
 	double **W = (double **)malloc(n * sizeof(double*));
-	for(int i = 0; i < nb; i++) W[i] = (double *)malloc(nb * sizeof(double));
+	for(int i = 0; i < n; i++) W[i] = (double *)malloc(nb * sizeof(double));
 	
 	
 	
