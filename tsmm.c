@@ -9,7 +9,7 @@ int main()
 {
 	#pragma omp parallel
 	{
-		printf("Hello OpenMP from thread %d / %d on core %d\n", omp_get_thread_num(), omp_get_num_threads(), sched_getcpu());
+		// printf("Hello OpenMP from thread %d / %d on core %d\n", omp_get_thread_num(), omp_get_num_threads(), sched_getcpu());
 	}
 	
 	int nb=2;
@@ -83,7 +83,7 @@ int main()
 			{
 				for(int j = 0; j<nb; j++)
 				{
-					printf("%d ",V[i][j]);
+					printf("%f ",V[i][j]);
 				}
 				printf("\n");
 			}
@@ -93,7 +93,7 @@ int main()
 			{
 				for(int j = 0; j<nb; j++)
 				{
-					printf("%d ",M[i][j]);
+					printf("%f ",M[i][j]);
 				}
 				printf("\n");
 			}
@@ -103,7 +103,7 @@ int main()
 			{
 				for(int j = 0; j<nb; j++)
 				{
-					printf("%d ",W[i][j]);
+					printf("%f ",W[i][j]);
 				}
 				printf("\n");
 			}
