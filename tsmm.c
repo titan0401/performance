@@ -47,6 +47,7 @@ int main()
 		printf("Performance: %g GFlop/s\n", 2.*n*nIter/wtime*1./1000*1./1000*1./1000);
 		printf("Performance: %g Gbytes/s\n", 8.*2*n*nIter/wtime*1./1000*1./1000*1./1000);
 
+		
 		free(x);
 		free(y);
 		return 0;
