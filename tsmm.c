@@ -17,8 +17,17 @@ int main()
 	double M[nb][nb];
 	printf("Number of rows n: ");
 	scanf("%d", &n);
-	double *V = malloc(n*nb*sizeof(double));
-	double *W = malloc(n*nb*sizeof(double));
+	
+	double **V = (double **)malloc(n * sizeof(double*));
+	for(int i = 0; i < nb; i++) V[i] = (double *)malloc(nb * sizeof(double));
+	
+	double **W = (double **)malloc(n * sizeof(double*));
+	for(int i = 0; i < nb; i++) W[i] = (double *)malloc(nb * sizeof(double));
+	
+	
+	
+	//double *V = malloc(n*nb*sizeof(double));
+	//double *W = malloc(n*nb*sizeof(double));
 	
 	//Initialize M
 	for(int i=0;i<nb;i++)
