@@ -25,7 +25,7 @@ int main()
 	{
 		for(int j=0;j<nb;j++)
 		{
-			M[i][j]= i*nb+j;
+			M[i][j]= double(i*nb+j);
 		}
 	}
 	
@@ -36,7 +36,7 @@ int main()
 		{
 			for(int j = 0; j<nb; j++)
 			{
-			V[i][j] = j+1;
+			V[i][j] = double(j+1);
 			}
 		}
 		
@@ -54,7 +54,7 @@ int main()
 				W[i][j] = 0; //overwriting result
 				for(int k = 0; k<nb; k++)
 				{
-					W[i][j] += V[i][k]*M[k][j];
+					W[i][j] += double(V[i][k]*M[k][j]);
 				}
 			}
 		}	
@@ -74,7 +74,7 @@ int main()
 			{
 				for(int j = 0; j<nb; j++)
 				{
-					printf("%i ",V[i][j])
+					printf("%d ",V[i][j]);
 				}
 				printf("\n");
 			}
@@ -84,7 +84,7 @@ int main()
 			{
 				for(int j = 0; j<nb; j++)
 				{
-					printf("%i ",M[i][j])
+					printf("%d ",M[i][j]);
 				}
 				printf("\n");
 			}
@@ -94,7 +94,7 @@ int main()
 			{
 				for(int j = 0; j<nb; j++)
 				{
-					printf("%i ",W[i][j])
+					printf("%d ",W[i][j]);
 				}
 				printf("\n");
 			}
