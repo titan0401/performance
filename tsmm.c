@@ -71,8 +71,8 @@ int main()
 		wtime = omp_get_wtime() - wtime;
 		
 		printf("Runtime: %g s\n", wtime);
-		printf("Performance: %g GFlop/s\n", 2.*n*nb*(nb-1)*nIter/wtime*1./1000*1./1000*1./1000);
-		printf("Performance: %g Gbytes/s\n", 8.*nb*n*nIter/wtime*1./1000*1./1000*1./1000);
+		printf("Performance: %g GFlop/s\n", 2.*n*nb*nb*nIter/wtime*1./1000*1./1000*1./1000);
+		printf("Performance: %g Gbytes/s\n", 8.*2*nb*n*nIter/wtime*1./1000*1./1000*1./1000);
 
 		//Print if n<10
 		if(n<10)
