@@ -94,7 +94,7 @@ int main()
 					__m128d m2 = _mm_set_pd(M[1][1],M[1][0]);
 					__m128d vi2m2 = _mm_mul_pd(vi2,m2);
 					__m128d wi = _mm_add_pd(vi1m1,vi2m2);
-					_mm_stream_pd(&W[i], wi);
+					_mm_stream_pd(&W[nb*i], wi);
 				//}
 			//}
 		}	
@@ -123,3 +123,4 @@ int main()
 		free(W);
 		return 0;
 }
+

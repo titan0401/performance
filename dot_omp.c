@@ -7,47 +7,109 @@
 
 int main()
 {
-	int n;
-	printf("Vector dimension: ");
-	scanf("%d", &n);
-	double *x = malloc(n*sizeof(double));
-	double *y = malloc(n*sizeof(double));
-
 	#pragma omp parallel
 	{
-		printf("Hello OpenMP from thread %d / %d on core %d\n", omp_get_thread_num(), omp_get_num_threads(), sched_getcpu());
+		// printf("Hello OpenMP from thread %d / %d on core %d\n", omp_get_thread_num(), omp_get_num_threads(), sched_getcpu());
 	}
 	
-	// exploit sum_(k=1)^n 1/(k*k+1)) = 1 - 1/(n+1)
+	int nb=4;
+	int n;
+	double M[nb][nb];
+	printf("Number of rows n: ");
+	scanf("%d", &n);
+	
+	double **V = (double **)malloc(n * sizeof(double*));
+	for(int i = 0; i < n; i++) V[i] = (double *)malloc(nb * sizeof(double));
+	
+	double **W = (double **)malloc(n * sizeof(double*));
+	for(int i = 0; i < n; i++) W[i] = (double *)malloc(nb * sizeof(double));
+	
+	
+	
+	//double *V = malloc(n*nb*sizeof(double));
+	//double *W = malloc(n*nb*sizeof(double));
+	
+	//Initialize M
+	for(int i=0;i<nb;i++)
+	{
+		for(int j=0;j<nb;j++)
+		{
+			M[i][j]= (double)(i*nb+j);
+		}
+	}
+	
+	// Initialize V
 	
 	#pragma omp parallel for schedule(static)
 		for (int i = 0; i<n; i++)
 		{
-			x[i] = 1./(i+1);
-			y[i] = 1./(i+2);
+			for(int j = 0; j<nb; j++)
+			{
+			V[i][j] = (double)(j+1);
+			}
 		}
 		
 		const int nIter = 100;
 		
-		double result = 0;
-		
 		double wtime = omp_get_wtime();
 		for(int iter = 0; iter < nIter; iter ++)
 		{
-			double dot = 0;
-	#pragma omp parallel for schedule(static) reduction(+:dot)
-		for(int i= 0; i<n; i++)
-			dot +=x[i]*y[i];
-		result += dot;
+	
+	#pragma omp parallel for schedule(static) firstprivate(M)	
+		for(int i = 0; i<n ;i++)
+		{
+			for(int j = 0; j<nb ;j++)
+			{
+				W[i][j] = 0; //overwriting result
+				for(int k = 0; k<nb; k++)
+				{
+					W[i][j] += (double)(V[i][k]*M[k][j]);
+				}
+			}
+		}	
 		}
 		wtime = omp_get_wtime() - wtime;
 		
-		printf("Error: %g\n", fabs(result-nIter*(1-1./(n+1))));
 		printf("Runtime: %g s\n", wtime);
-		printf("Performance: %g GFlop/s\n", 2.*n*nIter/wtime*1./1000*1./1000*1./1000);
-		printf("Performance: %g Gbytes/s\n", 8.*2*n*nIter/wtime*1./1000*1./1000*1./1000);
+		printf("Performance: %g GFlop/s\n", 2.*n*nb*(nb-1)*nIter/wtime*1./1000*1./1000*1./1000);
+		printf("Performance: %g Gbytes/s\n", 8.*nb*n*nIter/wtime*1./1000*1./1000*1./1000);
 
-		free(x);
-		free(y);
+		//Print if n<10
+		if(n<10)
+		{
+			printf("Since n < 10, matrices are printed:\n");
+			printf("V:\n");
+			for(int i = 0; i<n; i++)
+			{
+				for(int j = 0; j<nb; j++)
+				{
+					printf("%f ",V[i][j]);
+				}
+				printf("\n");
+			}
+			
+			printf("M:\n");
+			for(int i = 0; i<nb; i++)
+			{
+				for(int j = 0; j<nb; j++)
+				{
+					printf("%f ",M[i][j]);
+				}
+				printf("\n");
+			}
+			
+			printf("W:\n");
+			for(int i = 0; i<n; i++)
+			{
+				for(int j = 0; j<nb; j++)
+				{
+					printf("%f ",W[i][j]);
+				}
+				printf("\n");
+			}
+		}
+		
+		free(V);
+		free(W);
 		return 0;
 }
