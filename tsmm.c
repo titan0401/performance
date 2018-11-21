@@ -15,8 +15,8 @@ int main()
 	scanf("%d", &n);
 	//double *V = malloc(nb * n * sizeof(double));
 	//double *W = malloc(nb * n * sizeof(double));
-	double *V = NULL; posix_memalign((void**)&V, 16, size);
-	double *W = NULL; posix_memalign((void**)&W, 16, size);
+	double *V = NULL; posix_memalign((void**)&V, 16, nb * n * sizeof(double));
+	double *W = NULL; posix_memalign((void**)&W, 16, nb * n * sizeof(double));
 	#pragma omp parallel
 	{
 	//	printf("Hello OpenMP from thread %d / %d on core %d\n", omp_get_thread_num(), omp_get_num_threads(), sched_getcpu());
@@ -94,7 +94,7 @@ int main()
 					__m128d m2 = _mm_set_pd(M[1][1],M[1][0]);
 					__m128d vi2m2 = _mm_mul_pd(vi2,m2);
 					__m128d wi = _mm_add_pd(vi1m1,vi2m2);
-					__mm_stream_pd(&W[i], wi);
+					_mm_stream_pd(&W[i], wi);
 				//}
 			//}
 		}	
