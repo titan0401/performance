@@ -2,7 +2,7 @@
 #SBATCH --time=00:15:00
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --constraing=inca12
+#SBATCH --constraint=inca12
 #SBATCH --account=kurse
 
 echo "tsmm2:"
