@@ -8,9 +8,9 @@ int main()
 {
 // get dimension
 int n;
-const int stride = n + 20;
 printf("Please provide matrix dimension n: ");
 scanf("\%d",&n);
+const int stride = n + 20;
 //alloc matrices 
 double *A = malloc(n*stride*sizeof(double));
 double *B = malloc(n*stride*sizeof(double));
