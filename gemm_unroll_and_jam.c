@@ -80,7 +80,7 @@ for(int i = 0; i < n; i+=8){
     }
 }
 wtime = omp_get_wtime() - wtime;
-printf("Runtime: %g, performance: %g [GFlop/s]\n", wtime, n/1000000000./wtime);
+printf("Runtime: %g, performance: %g [GFlop/s]\n", wtime, n/1000.*n/1000.*n/1000./wtime);
 
 // print result if n is less or equal 32
 if(n <= 32){
